@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join with me</title>
+    <style>
+        /* --- 1. Basic & Google Font Setup --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Prevent text from causing scrolls */
+            
+            /* --- 2. Algorand Grid Background (SVG based) --- */
+            background-color: #f7fff7; /* Very light Mint */
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM4N0NFQkIiIGZpbGwtb3BhY2l0eT0iMC4xNSI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwaDIwdjIwSDIWMjB6TTAgMjBoMjB2MjBIMFYyMHoyMCAwaDIwdjIwaDIwVjB6Ii8+PC9nPjwvZz48L3N2Zz4=');
+            background-size: 40px 40px; /* Size of grid squares */
+            position: relative;
+        }
+
+        /* --- 3. Overlapping Large Text Effect --- */
+        .background-text {
+            position: absolute;
+            font-size: 250px;
+            font-weight: 800;
+            color: rgba(135, 206, 235, 0.2); /* Sky Blue, transparent */
+            transform: rotate(-45deg);
+            z-index: 1; /* Place behind the container */
+            pointer-events: none; /* Mouse won't interact with it */
+        }
+        
+        /* Positioning the text elements */
+        #bg-text-signup-1 { top: -100px; left: -100px; }
+        #bg-text-signup-2 { bottom: -100px; right: -100px; }
+
+        /* --- 4. The Main Signup Container (Your Original Design) --- */
+        .signup-container {
+            background-color: rgba(255, 255, 255, 0.95); /* Slight transparency */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 380px;
+            border-top: 5px solid #4CAF50; /* Success Green Accent */
+            position: relative; /* Ensure it is above the text */
+            z-index: 2; /* Main content on top */
+            backdrop-filter: blur(5px); /* Optional blur for cleaner look */
+        }
+        
+        h2 { text-align: center; color: #333; margin-bottom: 25px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background-color: #45a049; }
+        .footer-text { text-align: center; margin-top: 15px; font-size: 14px; }
+        .footer-text a { color: #4CAF50; text-decoration: none; }
+    </style>
+</head>
+<body>
+    
+    <div class="background-text" id="bg-text-signup-1">BUILD</div>
+    <div class="background-text" id="bg-text-signup-2">GROW</div>
+
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form>
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <button type="submit">Get Started</button>
+        </form>
+        <p class="footer-text">Already a member? <a href="login.html">Login</a></p>
+    </div>
+</body>
+</html>

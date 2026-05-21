@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sihas Wanniarachchi | Security Portfolio</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Cyber Tech Palette */
+            --primary: #ffffff;
+            --accent: #00D2FF; 
+            --bg-dark: #050B14; 
+            --bg-darker: #02060C;
+            --glass: rgba(5, 11, 20, 0.7);
+            --glass-border: rgba(0, 210, 255, 0.2);
+            --border-hover: rgba(0, 210, 255, 0.5);
+            --text-muted: #8A98B0;
+            --nav-bg: rgba(5, 11, 20, 0.85);
+            
+            /* Social Brand Colors */
+            --linkedin: #0077b5;
+            --github: #ffffff;
+            --youtube: #ff0000;
+        }
+
+        :root.light-mode {
+            --primary: #050B14;
+            --accent: #0066FF; 
+            --bg-dark: #F0F4F8; 
+            --bg-darker: #E1E8F0;
+            --glass: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(0, 102, 255, 0.2);
+            --border-hover: rgba(0, 102, 255, 0.5);
+            --text-muted: #4A5568;
+            --nav-bg: rgba(240, 244, 248, 0.85);
+            --github: #050B14;
+        }
+
+        /* LENIS SMOOTH SCROLL */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; } 
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-darker); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+        @media (hover: hover) and (pointer: fine) {
+            * { cursor: none; }
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* NOISE OVERLAY */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9997;
+            opacity: 0.03;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* CUSTOM CURSOR */
+        .cursor {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10001;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.3s;
+            box-shadow: 0 0 10px var(--accent);
+        }
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s, width 0.2s, height 0.2s, border-color 0.3s;
+        }
+        
+        .cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid var(--accent);
+            backdrop-filter: blur(2px);
+            box-shadow: none;
+        }
+        .cursor-follower.hovered {
+            width: 0px;
+            height: 0px;
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+            .cursor, .cursor-follower { display: none; }
+        }
+
+        /* PRELOADER */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            z-index: 10005;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .loader-text {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 12px;
+            color: var(--accent);
+            text-transform: uppercase;
+            overflow: hidden;
+        }
+        .loader-progress {
+            width: 250px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .loader-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        nav.scrolled {
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 8%;
+        }
+
+        .nav-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            display: inline-flex;
+        }
+
+        .header-logo-round {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            border: 2px solid transparent; 
+            object-fit: cover;
+            transition: 0.4s ease;
+        }
+        .nav-logo-container:hover .header-logo-round {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+        }
+
+        .nav-name {
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 1rem;
+        }
+
+        nav .nav-links { display: flex; gap: 30px; align-items: center; }
+
+        nav .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+            position: relative;
+            padding: 10px;
+            display: inline-block; 
+        }
+        nav .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 10px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        nav .nav-links a:hover { color: var(--primary); }
+        nav .nav-links a:hover::after { width: calc(100% - 20px); }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: 0.3s;
+            padding: 10px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .theme-toggle:hover { color: var(--accent); }
+
+        /* --- HERO MASK REVEAL (INTERACTIVE) --- */
+        .hero-interactive {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--bg-dark);
+        }
+
+        .hero-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            pointer-events: none; 
+        }
+
+        .hero-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            object-position: center top;
+            z-index: -1;
+            transition: opacity 0.5s;
+        }
+
+        .layer-bottom .hero-bg-img {
+            opacity: 0.3;
+            filter: grayscale(80%) contrast(120%) brightness(60%);
+        }
+
+        .layer-bottom h1 {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            background: none;
+            -webkit-text-fill-color: transparent;
+        }
+        .layer-bottom .hero-subtitle { color: rgba(255, 255, 255, 0.3); }
+
+        .layer-top {
+            clip-path: circle(0px at 50% 50%);
+            z-index: 2;
+        }
+
+        .layer-top .hero-bg-img {
+            opacity: 0.8;
+            filter: grayscale(0%) contrast(110%);
+        }
+
+        .layer-top h1 {
+            color: var(--primary);
+        }
+        .layer-top .hero-subtitle {
+            color: var(--accent);
+        }
+
+        .hero-content {
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .hero-title-container { overflow: hidden; margin: -5px 0; }
+
+        h1 {
+            font-size: clamp(50px, 10vw, 150px);
+            margin: 0;
+            line-height: 0.9;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            letter-spacing: 12px;
+            font-size: clamp(0.7rem, 2vw, 1rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        /* --- CONTENT CONTAINERS --- */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: clamp(35px, 5vw, 60px);
+            font-weight: 900;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            color: var(--primary);
+            overflow: hidden;
+            letter-spacing: -1px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 2px solid var(--glass-border);
+            padding-bottom: 20px;
+        }
+        
+        .char { display: inline-block; }
+
+        /* --- EXPERTISE GRID --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .pro-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 50px 40px;
+            border-radius: 16px;
+            position: relative;
+            opacity: 0; 
+            transform: translateY(50px);
+            transition: border-color 0.4s, transform 0.4s;
+        }
+        
+        .pro-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .pro-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pro-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* --- CAREER TIMELINE SECTION --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--glass-border);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+            opacity: 0;
+        }
+
+        .timeline-item.left { left: 0; text-align: right; }
+        .timeline-item.right { left: 50%; }
+
+        .timeline-content {
+            padding: 30px;
+            background: var(--glass);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            transition: 0.4s;
+        }
+        
+        .timeline-content:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background-color: var(--bg-dark);
+            border: 3px solid var(--accent);
+            top: 30px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--accent);
+        }
+        .timeline-item.right::after { left: -8px; }
+
+        .timeline-date {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .timeline-content h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .timeline-content p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+
+        @media screen and (max-width: 768px) {
+            .timeline::before { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item.left { text-align: left; }
+            .timeline-item.right { left: 0%; }
+            .timeline-item.left::after, .timeline-item.right::after { left: 23px; }
+        }
+
+        /* --- HORIZONTAL SCROLL GALLERY --- */
+        .gallery-container {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: var(--bg-darker);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .gallery-track {
+            display: flex;
+            height: 100%;
+            width: fit-content;
+            align-items: center;
+            padding: 0 10vw;
+            gap: 5vw;
+        }
+
+        .gallery-item {
+            width: 60vw;
+            max-width: 800px;
+            height: 60vh;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .gallery-img-container {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 120%; 
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(80%);
+            transition: filter 0.5s;
+        }
+        
+        .gallery-item:hover img { filter: grayscale(0%); }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 0.4s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .gallery-caption h3 { font-size: 2rem; color: var(--accent); margin-bottom: 10px; }
+        .gallery-caption p { color: #ccc; }
+
+        /* --- FOOTER SECTION --- */
+        footer {
+            padding: 0 5%;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 50px;
+            margin-top: 100px;
+        }
+
+        .footer-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 80px 5%;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-spacer { flex: 1; display: none; }
+        @media (min-width: 768px) { .footer-spacer { display: block; } }
+
+        .footer-center-content { flex: 2; text-align: center; }
+        .footer-right-img { flex: 1; display: flex; justify-content: flex-end; }
+
+        .footer-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid transparent; 
+            object-fit: cover;
+            transition: 0.4s;
+            filter: grayscale(80%);
+        }
+        .footer-img:hover {
+            filter: grayscale(0%);
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+        }
+
+        .social-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        .social-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: 0.4s;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .social-item i { font-size: 2rem; margin-bottom: 10px; color: var(--primary); transition: 0.3s; }
+        
+        .social-item:hover { color: var(--accent); transform: translateY(-8px); }
+        .social-item:hover i { color: var(--accent); }
+
+        .status-bar {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            font-weight: 900;
+        }
+
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 12px var(--accent);
+            animation: pulse-kf 2s infinite;
+        }
+
+        @keyframes pulse-kf { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .copy { margin-top: 40px; font-size: 0.8rem; color: var(--text-muted); letter-spacing: 2px;}
+
+        /* --- CHATBOT UI --- */
+        .chatbot-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: none; 
+            z-index: 9000;
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+            border: none;
+            transition: 0.3s;
+        }
+        .chatbot-btn:hover { transform: scale(1.1); box-shadow: 0 10px 30px rgba(0, 210, 255, 0.6); }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            z-index: 9000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .chatbot-window.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h3 { font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        .chat-header h3 i { color: var(--accent); }
+        .chat-close { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; }
+        .chat-close:hover { color: var(--accent); }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .chat-body::-webkit-scrollbar { width: 4px; }
+        .chat-body::-webkit-scrollbar-thumb { background: var(--glass-border); }
+
+        .message { padding: 12px 16px; border-radius: 12px; max-width: 85%; font-size: 0.9rem; line-height: 1.4; }
+        .message.bot { background: rgba(0, 210, 255, 0.1); border: 1px solid var(--glass-border); color: var(--primary); align-self: flex-start; border-bottom-left-radius: 2px;}
+        .message.user { background: var(--accent); color: var(--bg-dark); align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 700;}
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input input {
+            flex: 1;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            padding: 10px 15px;
+            border-radius: 20px;
+            color: var(--primary);
+            font-family: inherit;
+            outline: none;
+        }
+        .chat-input input:focus { border-color: var(--accent); }
+        .chat-input button {
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- INTEL SEARCH SYSTEM --- */
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: rgba(2, 6, 12, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 6px 16px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            margin: 0 15px;
+            width: 180px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-wrapper:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+        }
+
+        .search-wrapper:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+            width: 260px;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            width: 100%;
+            padding-right: 25px;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-wrapper:focus-within .search-btn {
+            color: var(--accent);
+        }
+
+        .search-counter {
+            position: absolute;
+            right: 40px;
+            font-size: 0.65rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: 1px;
+            background: rgba(0, 210, 255, 0.15);
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .search-counter.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Search Results Visual States */
+        .pro-card, .timeline-item, .gallery-item {
+            transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
+        }
+
+        .pro-card.search-dimmed,
+        .timeline-item.search-dimmed,
+        .gallery-item.search-dimmed {
+            opacity: 0.15 !important;
+            transform: scale(0.95) !important;
+            pointer-events: none;
+        }
+
+        .pro-card.search-match,
+        .timeline-item.search-match,
+        .gallery-item.search-match {
+            opacity: 1 !important;
+            transform: scale(1.03) !important;
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4) !important;
+            z-index: 5;
+        }
+
+        @media (max-width: 768px) {
+            .footer-wrap { flex-direction: column; text-align: center; }
+            .footer-right-img { margin-top: 50px; justify-content: center; }
+            nav .nav-links { display: none; }
+            .theme-toggle { display: block; position: absolute; right: 20px; top: 15px; }
+            .chatbot-window { width: calc(100vw - 40px); right: 20px; }
+            h1 { font-size: clamp(40px, 15vw, 100px); }
+            
+            /* Responsive Search styles */
+            .search-wrapper {
+                width: 120px;
+                margin-right: 50px; /* Space for absolute theme-toggle on mobile */
+            }
+            .search-wrapper:focus-within {
+                width: 160px;
+            }
+            .nav-name {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise"></div>
+
+    <div id="preloader">
+        <div class="loader-text">SIHAS WANNIARACHCHI</div>
+        <div class="loader-progress">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <nav id="navbar">
+        <a href="#home" class="nav-logo-container magnetic hover-target">
+            <img src="photo.png" alt="Sihas Wanniarachchi Logo" class="header-logo-round">
+            <span class="nav-name">Sihas Wanniarachchi</span>
+        </a>
+       
+        <div class="nav-links">
+            <a href="#home" class="magnetic hover-target">Home</a>
+            <a href="#expertise" class="magnetic hover-target">Expertise</a>
+            <a href="#timeline" class="magnetic hover-target">Timeline</a>
+            <a href="#gallery" class="magnetic hover-target">Gallery</a>
+            <a href="login.html" >Login</a>
+            <a href="signup.html" >Signup</a>
+            <button id="theme-toggle" class="theme-toggle magnetic hover-target" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+         <div class="search-wrapper hover-target magnetic">
+            <input type="text" id="search-input" class="search-input" placeholder="SEARCH">
+            <span id="search-counter" class="search-counter">0 FOUND</span>
+            <button class="search-btn hover-target magnetic" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header id="home" class="hero-interactive">
+        <div class="hero-layer layer-bottom">
+            <img src="IMG Dasatha2-58.jpg" alt="Background" class="hero-bg-img">
+            <div class="hero-content">
+                <span class="hero-subtitle">CYBER SECURITY ANALYST</span>
+                <div class="hero-title-container">
+                    <h1 class="hero-title">Sihas</h1>
+                </div>
+                <div class="hero-title-container">
+                    <h1 class="hero-title">Wanniarachchi</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-layer layer-top" id="reveal-layer">
+            <img src="IMG Dasatha2-58.jpg" alt="Reveal Overlay" class="hero-bg-img">
+            <div class="hero-content">
+                <span class="hero-subtitle">CYBER SECURITY ANALYST</span>
+                <div class="hero-title-container">
+                    <h1 class="hero-title">Sihas</h1>
+                </div>
+                <div class="hero-title-container">
+                    <h1 class="hero-title">Wanniarachchi</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="expertise">
+        <h2 class="section-title split-text">CORE EXPERTISE</h2>
+        <div class="grid">
+            <div class="pro-card hover-target magnetic">
+                <h3>System Defense</h3>
+                <p>Hardening Debian environments and optimizing virtualization security protocols against persistent threats.</p>
+            </div>
+            <div class="pro-card hover-target magnetic">
+                <h3>Secure Development</h3>
+                <p>Architecting C++ applications with strict memory safety protocols to prevent buffer overflows.</p>
+            </div>
+            <div class="pro-card hover-target magnetic">
+                <h3>Hardware Analysis</h3>
+                <p>Researching RISC/CISC architectures to identify low-level system memory vulnerabilities.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="timeline">
+        <h2 class="section-title split-text" style="justify-content: center;">CAREER INTEL</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content hover-target">
+                    <span class="timeline-date">2026 - PRESENT</span>
+                    <h3>Cyber Security Analyst</h3>
+                    <p>Leading infrastructure defense and vulnerability assessments for enterprise networks. Specializing in zero-day threat mitigation.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content hover-target">
+                    <span class="timeline-date">2025</span>
+                    <h3>System Architecture Lead</h3>
+                    <p>Designed and deployed secure VMware environments. Implemented strict access controls and encrypted data pipelines.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content hover-target">
+                    <span class="timeline-date">2024</span>
+                    <h3>Security Researcher</h3>
+                    <p>Focused on bare-metal hardware vulnerabilities and C++ memory safety protocols within legacy CI/CD pipelines.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="gallery" style="padding-bottom: 20px;">
+        <h2 class="section-title split-text">PROJECT GALLERY</h2>
+    </div>
+
+    <div class="gallery-container">
+        <div class="gallery-track">
+            <div class="gallery-item hover-target">
+                <div class="gallery-img-container">
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop" class="parallax-img" alt="Project 1">
+                </div>
+                <div class="gallery-caption">
+                    <h3>Debian Hardening</h3>
+                    <p>Enterprise server security configuration and monitoring.</p>
+                </div>
+            </div>
+            <div class="gallery-item hover-target">
+                <div class="gallery-img-container">
+                    <img src="image.jpg"alt="Project 2">
+                </div>
+                <div class="gallery-caption">
+                    <h3>C++ Crypto Dev</h3>
+                    <p>Building secure, memory-safe communication protocols.</p>
+                </div>
+            </div>
+            <div class="gallery-item hover-target">
+                <div class="gallery-img-container">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop" class="parallax-img" alt="Project 3">
+                </div>
+                <div class="gallery-caption">
+                    <h3>Hardware Analysis</h3>
+                    <p>Circuit-level vulnerability testing and research.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-wrap">
+            <div class="footer-spacer"></div>
+
+            <div class="footer-center-content">
+                <div class="status-bar">
+                    <span><span class="pulse"></span> SECURE NODE ACTIVE</span>
+                    <span>LOC: COLOMBO, SL</span>
+                </div>
+
+                <h2 style="letter-spacing: 5px; font-weight: 900; font-size: clamp(1.5rem, 3vw, 2.5rem); margin: 0; text-transform: uppercase; color: var(--primary);">SIHAS WANNIARACHCHI</h2>
+                
+                <div class="social-container">
+                    <a href="https://www.linkedin.com/in/sihas-wanniarachchi-59029a275/" class="social-item hover-target magnetic"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
+                    <a href="https://github.com/sihas-wanniarachchi" class="social-item hover-target magnetic"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+                    <a href="#" class="social-item hover-target magnetic"><i class="fa-brands fa-youtube"></i><span>YouTube</span></a>
+                    <a href="mailto:sihasmethvidu256@gmail.com" class="social-item hover-target magnetic"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
+                </div>
+
+                <p class="copy">SYS &copy; 2026 // ALL DATA PROTECTED VIA ENCRYPTION</p>
+            </div>
+
+            <div class="footer-right-img">
+                <img src="IMG Dasatha2-58.jpg" alt="Sihas Wanniarachchi" class="footer-img hover-target">
+            </div>
+        </div>
+    </footer>
+
+    <button class="chatbot-btn hover-target" id="chatbot-toggle" aria-label="Open FAQ Chat">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <div class="chatbot-window" id="chatbot-window">
+        <div class="chat-header">
+            <h3><i class="fas fa-robot"></i> SIHAS_BOT v1.0</h3>
+            <button class="chat-close hover-target" id="chatbot-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="message bot">Connection established. Hello! I'm Sihas's virtual assistant. Ask me about his <b>skills</b>, <b>experience</b>, or <b>contact</b> info.</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input-field" placeholder="Type a message..." class="hover-target">
+            <button id="chat-submit" class="hover-target"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <script>
+        // --- CUSTOM CURSOR & MAGNETIC EFFECT ---
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+        const hoverTargets = document.querySelectorAll('.hover-target, a, button');
+        const magnetics = document.querySelectorAll('.magnetic');
+        
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let followerX = window.innerWidth / 2, followerY = window.innerHeight / 2;
+        let maskX = window.innerWidth / 2, maskY = window.innerHeight / 2;
+        const revealLayer = document.getElementById('reveal-layer');
+        const heroContents = document.querySelectorAll('.hero-content');
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            if(cursor) {
+                cursor.style.left = mouseX + 'px';
+                cursor.style.top = mouseY + 'px';
+            }
+        });
+
+        gsap.ticker.add(() => {
+            if(follower) {
+                followerX += (mouseX - followerX) * 0.15;
+                followerY += (mouseY - followerY) * 0.15;
+                follower.style.left = followerX + 'px';
+                follower.style.top = followerY + 'px';
+            }
+
+            if(revealLayer) {
+                maskX += (mouseX - maskX) * 0.1;
+                maskY += (mouseY - maskY) * 0.1;
+                
+                if (window.scrollY < window.innerHeight && typeof maskRadius !== 'undefined') {
+                    revealLayer.style.clipPath = `circle(${maskRadius.val}px at ${maskX}px ${maskY}px)`;
+                    
+                    const xAxis = (window.innerWidth / 2 - mouseX) / 30;
+                    const yAxis = (window.innerHeight / 2 - mouseY) / 30;
+                    
+                    heroContents.forEach(content => {
+                        content.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+                    });
+                }
+            }
+        });
+
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => {
+                if(cursor) cursor.classList.add('hovered');
+                if(follower) follower.classList.add('hovered');
+            });
+            target.addEventListener('mouseleave', () => {
+                if(cursor) cursor.classList.remove('hovered');
+                if(follower) follower.classList.remove('hovered');
+            });
+        });
+
+        magnetics.forEach(btn => {
+            btn.addEventListener('mousemove', function(e) {
+                const position = btn.getBoundingClientRect();
+                const x = e.clientX - position.left - position.width / 2;
+                const y = e.clientY - position.top - position.height / 2;
+                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.5, ease: "power3.out" });
+            });
+            btn.addEventListener('mouseleave', function() {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.8, ease: "elastic.out(1, 0.3)" });
+            });
+        });
+
+        // --- LENIS SMOOTH SCROLL ---
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            smooth: true,
+        });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // --- GSAP ANIMATIONS ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Preloader
+        const preloader = document.getElementById('preloader');
+        const loaderBar = document.querySelector('.loader-bar');
+        const tlPreloader = gsap.timeline();
+        let maskRadius = { val: 0 };
+        
+        tlPreloader.to(loaderBar, { width: '100%', duration: 1.5, ease: "power3.inOut" })
+                   .to(preloader, { yPercent: -100, duration: 1, ease: "power4.inOut" })
+                   .from('.hero-subtitle', { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.5")
+                   .from('.hero-title', { y: 150, opacity: 0, duration: 1, stagger: 0.2, ease: "power4.out" }, "-=0.6")
+                   .to(maskRadius, { val: 350, duration: 1.5, ease: "power3.out" }, "-=0.6");
+
+        // Navbar Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        // Hero Fade Out
+        gsap.to('.hero-layer', {
+            yPercent: 30, opacity: 0, ease: "none",
+            scrollTrigger: { trigger: "header", start: "top top", end: "bottom top", scrub: true }
+        });
+
+        // Text Splitting utility
+        const splitTexts = document.querySelectorAll('.split-text');
+        splitTexts.forEach(text => {
+            const content = text.textContent;
+            text.innerHTML = '';
+            content.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                text.appendChild(span);
+            });
+            
+            gsap.from(text.querySelectorAll('.char'), {
+                y: 100, opacity: 0, duration: 0.8, stagger: 0.05, ease: "power4.out",
+                scrollTrigger: { trigger: text, start: "top 85%" }
+            });
+        });
+
+        // Expertise Cards
+        gsap.to('.pro-card', {
+            y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out",
+            scrollTrigger: { trigger: "#expertise .grid", start: "top 80%" }
+        });
+
+        // Timeline Animations
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((item, i) => {
+            const xOffset = item.classList.contains('left') ? -50 : 50;
+            gsap.fromTo(item, 
+                { x: xOffset, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+                  scrollTrigger: { trigger: item, start: "top 85%" }
+                }
+            );
+        });
+
+        // Horizontal Scroll Gallery
+        const galleryContainer = document.querySelector('.gallery-container');
+        const galleryTrack = document.querySelector('.gallery-track');
+        
+        const getScrollAmount = () => -(galleryTrack.scrollWidth - window.innerWidth);
+        
+        const tween = gsap.to(galleryTrack, {
+            x: getScrollAmount,
+            ease: "none"
+        });
+
+        ScrollTrigger.create({
+            trigger: galleryContainer,
+            start: "top top",
+            end: () => `+=${getScrollAmount() * -1}`,
+            pin: true,
+            animation: tween,
+            scrub: 1,
+            invalidateOnRefresh: true
+        });
+        
+        const parallaxImgs = document.querySelectorAll('.parallax-img');
+        parallaxImgs.forEach(img => {
+            gsap.to(img, {
+                xPercent: -20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: galleryContainer,
+                    start: "top top",
+                    end: () => `+=${getScrollAmount() * -1}`,
+                    scrub: true
+                }
+            });
+        });
+
+        // Footer
+        gsap.from('.footer-wrap', {
+            y: 100, opacity: 0, scale: 0.95, duration: 1, ease: "power3.out",
+            scrollTrigger: { trigger: "footer", start: "top 95%" }
+        });
+
+        // --- THEME TOGGLE ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const icon = themeToggle.querySelector('i');
+        const root = document.documentElement;
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+            root.classList.add('light-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            root.classList.toggle('light-mode');
+            const isLight = root.classList.contains('light-mode');
+            if (isLight) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // --- CHATBOT LOGIC ---
+        const chatToggle = document.getElementById('chatbot-toggle');
+        const chatWindow = document.getElementById('chatbot-window');
+        const chatClose = document.getElementById('chatbot-close');
+        
+        if (chatToggle && chatWindow && chatClose) {
+            const chatInput = document.getElementById('chat-input-field');
+            const chatSubmit = document.getElementById('chat-submit');
+            const chatBody = document.getElementById('chat-body');
+
+            chatToggle.addEventListener('click', () => chatWindow.classList.add('active'));
+            chatClose.addEventListener('click', () => chatWindow.classList.remove('active'));
+
+            function appendMessage(text, sender) {
+                const div = document.createElement('div');
+                div.className = `message ${sender}`;
+                div.innerHTML = text;
+                chatBody.appendChild(div);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            function handleBotResponse(text) {
+                const msg = text.toLowerCase();
+                let response = "I'm not sure about that. Try asking about <b>skills</b>, <b>experience</b>, or <b>contact</b>.";
+                
+                if (msg.includes('skill') || msg.includes('what can you do')) {
+                    response = "Sihas is an expert in Debian hardening, VMware security, C++ memory safety, and low-level hardware analysis.";
+                } else if (msg.includes('experience') || msg.includes('work') || msg.includes('job')) {
+                    response = "He has experience as a System Architecture Lead and Security Researcher, specializing in zero-day threat mitigation.";
+                } else if (msg.includes('contact') || msg.includes('email') || msg.includes('hire')) {
+                    response = "You can reach Sihas at <a href='mailto:sihasmethvidu256@gmail.com' style='color:var(--accent)'>sihasmethvidu256@gmail.com</a>.";
+                } else if (msg.includes('hello') || msg.includes('hi')) {
+                    response = "Hello! How can I help you today?";
+                }
+
+                setTimeout(() => {
+                    appendMessage(response, 'bot');
+                }, 600);
+            }
+
+            function sendMessage() {
+                const text = chatInput.value.trim();
+                if (text === '') return;
+                appendMessage(text, 'user');
+                chatInput.value = '';
+                handleBotResponse(text);
+            }
+
+            chatSubmit.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        }
+
+        // --- REAL-TIME INTEL SEARCH SYSTEM ---
+        const searchInput = document.getElementById('search-input');
+        const searchCounter = document.getElementById('search-counter');
+        const searchBtn = document.querySelector('.search-btn');
+
+        if (searchInput && searchCounter) {
+            // Elements to search in
+            const searchTargets = [
+                {
+                    elements: document.querySelectorAll('.pro-card'),
+                    getText: (el) => {
+                        const h3 = el.querySelector('h3') ? el.querySelector('h3').textContent : '';
+                        const p = el.querySelector('p') ? el.querySelector('p').textContent : '';
+                        return `${h3} ${p}`;
+                    }
+                },
+                {
+                    elements: document.querySelectorAll('.timeline-item'),
+                    getText: (el) => {
+                        const date = el.querySelector('.timeline-date') ? el.querySelector('.timeline-date').textContent : '';
+                        const h3 = el.querySelector('h3') ? el.querySelector('h3').textContent : '';
+                        const p = el.querySelector('p') ? el.querySelector('p').textContent : '';
+                        return `${date} ${h3} ${p}`;
+                    }
+                },
+                {
+                    elements: document.querySelectorAll('.gallery-item'),
+                    getText: (el) => {
+                        const h3 = el.querySelector('.gallery-caption h3') ? el.querySelector('.gallery-caption h3').textContent : '';
+                        const p = el.querySelector('.gallery-caption p') ? el.querySelector('.gallery-caption p').textContent : '';
+                        return `${h3} ${p}`;
+                    }
+                }
+            ];
+
+            function performSearch() {
+                const query = searchInput.value.toLowerCase().trim();
+                let matchesCount = 0;
+                let firstMatchEl = null;
+
+                if (query === '') {
+                    // Reset all states
+                    searchTargets.forEach(target => {
+                        target.elements.forEach(el => {
+                            el.classList.remove('search-dimmed', 'search-match');
+                        });
+                    });
+                    searchCounter.classList.remove('active');
+                    return;
+                }
+
+                searchTargets.forEach(target => {
+                    target.elements.forEach(el => {
+                        const text = target.getText(el).toLowerCase();
+                        if (text.includes(query)) {
+                            el.classList.add('search-match');
+                            el.classList.remove('search-dimmed');
+                            matchesCount++;
+                            if (!firstMatchEl) {
+                                firstMatchEl = el;
+                            }
+                        } else {
+                            el.classList.add('search-dimmed');
+                            el.classList.remove('search-match');
+                        }
+                    });
+                });
+
+                // Update matches counter
+                searchCounter.textContent = `${matchesCount} FOUND`;
+                searchCounter.classList.add('active');
+
+                return firstMatchEl;
+            }
+
+            searchInput.addEventListener('input', performSearch);
+
+            // Smooth scroll to first match on Enter key or Search button click
+            function scrollToFirstMatch() {
+                const firstMatch = performSearch();
+                if (firstMatch) {
+                    if (typeof lenis !== 'undefined') {
+                        lenis.scrollTo(firstMatch, { offset: -120, duration: 1.2 });
+                    } else {
+                        firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    
+                    // Add micro-animation accent flash
+                    gsap.fromTo(firstMatch, 
+                        { boxShadow: "0 0 40px rgba(0, 210, 255, 0.8)" },
+                        { boxShadow: "0 0 25px rgba(0, 210, 255, 0.4)", duration: 1 }
+                    );
+                }
+            }
+
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    scrollToFirstMatch();
+                    searchInput.blur();
+                }
+            });
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', scrollToFirstMatch);
+            }
+
+            // Shortcut key to focus search: CMD+K, CTRL+K or '/' key
+            document.addEventListener('keydown', (e) => {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                    e.preventDefault();
+                    searchInput.focus();
+                } else if (e.key === '/' && document.activeElement !== searchInput && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            });
+            
+            // Re-apply hover target event listeners to dynamically styled elements
+            if (typeof cursor !== 'undefined' && typeof follower !== 'undefined') {
+                const searchElements = [searchInput, searchBtn, document.querySelector('.search-wrapper')];
+                searchElements.forEach(target => {
+                    if (target) {
+                        target.addEventListener('mouseenter', () => {
+                            if(cursor) cursor.classList.add('hovered');
+                            if(follower) follower.classList.add('hovered');
+                        });
+                        target.addEventListener('mouseleave', () => {
+                            if(cursor) cursor.classList.remove('hovered');
+                            if(follower) follower.classList.remove('hovered');
+                        });
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
